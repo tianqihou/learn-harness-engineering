@@ -228,6 +228,96 @@ const koSkillItems = [
   { text: "스킬 개요", link: "/ko/skills/" }
 ];
 
+const relinkItems = (items: Array<{ text: string; link: string }>, locale: string) =>
+  items.map((item) => ({
+    ...item,
+    link: item.link.replace(/^\/(en|zh|vi|ko|uz|ru)\//, `/${locale}/`)
+  }));
+
+const createLocaleTheme = (
+  locale: string,
+  sourceItems: {
+    lectures: Array<{ text: string; link: string }>;
+    projects: Array<{ text: string; link: string }>;
+    resources: Array<{ text: string; link: string }>;
+    skills: Array<{ text: string; link: string }>;
+  },
+  labels: {
+    lectures: string;
+    projects: string;
+    resources: string;
+    skills: string;
+    resourceLibrary: string;
+    tryHarness: string;
+    outline?: string;
+    prev?: string;
+    next?: string;
+    lastUpdated?: string;
+    returnToTop?: string;
+    sidebarMenu?: string;
+    darkModeSwitch?: string;
+    lightModeSwitchTitle?: string;
+    darkModeSwitchTitle?: string;
+  }
+) => {
+  const lectures = relinkItems(sourceItems.lectures, locale);
+  const projects = relinkItems(sourceItems.projects, locale);
+  const resources = relinkItems(sourceItems.resources, locale);
+  const skills = relinkItems(sourceItems.skills, locale);
+
+  return {
+    nav: [
+      { text: labels.lectures, link: lectures[1].link, activeMatch: `^/${locale}/(lectures/.*)?$` },
+      { text: labels.projects, link: projects[0].link, activeMatch: `^/${locale}/projects/` },
+      { text: labels.resources, link: `/${locale}/resources/`, activeMatch: `^/${locale}/resources/` },
+      { text: labels.skills, link: `/${locale}/skills/`, activeMatch: `^/${locale}/skills/` },
+      {
+        text: labels.tryHarness,
+        link: `https://github.com/walkinglabs/learn-harness-engineering/blob/main/docs/${locale}/resources/templates/index.md`,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }
+    ],
+    sidebar: {
+      [`/${locale}/projects/`]: [{ text: labels.projects, items: projects }],
+      [`/${locale}/resources/`]: [{ text: labels.resourceLibrary, items: resources }],
+      [`/${locale}/skills/`]: [{ text: labels.skills, items: skills }],
+      [`/${locale}/`]: [{ text: labels.lectures, items: lectures }]
+    },
+    outline: {
+      level: [2, 3],
+      ...(labels.outline ? { label: labels.outline } : {})
+    },
+    docFooter: {
+      prev: labels.prev || "Previous",
+      next: labels.next || "Next"
+    },
+    lastUpdated: {
+      text: labels.lastUpdated || "Last updated"
+    },
+    returnToTopLabel: labels.returnToTop || "Return to top",
+    sidebarMenuLabel: labels.sidebarMenu || "Menu",
+    darkModeSwitchLabel: labels.darkModeSwitch || "Theme",
+    lightModeSwitchTitle: labels.lightModeSwitchTitle || "Switch to light theme",
+    darkModeSwitchTitle: labels.darkModeSwitchTitle || "Switch to dark theme",
+    socialLinks: [{ icon: "github", link: githubRepoTreeLink }]
+  };
+};
+
+const enSourceItems = {
+  lectures: enLectureItems,
+  projects: enProjectItems,
+  resources: enResourceItems,
+  skills: enSkillItems
+};
+
+const zhSourceItems = {
+  lectures: zhLectureItems,
+  projects: zhProjectItems,
+  resources: zhResourceItems,
+  skills: zhSkillItems
+};
+
 export default withMermaid(
   defineConfig({
     base: docsBase,
@@ -331,6 +421,137 @@ export default withMermaid(
           darkModeSwitchTitle: "切换到深色模式",
           socialLinks: [{ icon: "github", link: githubRepoTreeLink }]
         }
+      },
+      "zh-TW": {
+        label: "繁體中文",
+        lang: "zh-TW",
+        link: "/zh-TW/",
+        themeConfig: createLocaleTheme("zh-TW", zhSourceItems, {
+          lectures: "講義",
+          projects: "專案",
+          resources: "資源庫",
+          skills: "技能",
+          resourceLibrary: "資源庫",
+          tryHarness: "Try Harness ↗",
+          prev: "上一篇",
+          next: "下一篇",
+          lastUpdated: "最後更新於",
+          returnToTop: "回到頂部",
+          sidebarMenu: "選單",
+          darkModeSwitch: "主題",
+          lightModeSwitchTitle: "切換到淺色模式",
+          darkModeSwitchTitle: "切換到深色模式"
+        })
+      },
+      ja: {
+        label: "日本語",
+        lang: "ja-JP",
+        link: "/ja/",
+        themeConfig: createLocaleTheme("ja", enSourceItems, {
+          lectures: "講義",
+          projects: "プロジェクト",
+          resources: "リソース",
+          skills: "スキル",
+          resourceLibrary: "リソースライブラリ",
+          tryHarness: "Try Harness ↗",
+          outline: "このページ",
+          prev: "前へ",
+          next: "次へ",
+          lastUpdated: "最終更新",
+          returnToTop: "トップへ戻る",
+          sidebarMenu: "メニュー",
+          darkModeSwitch: "テーマ",
+          lightModeSwitchTitle: "ライトモードに切り替え",
+          darkModeSwitchTitle: "ダークモードに切り替え"
+        })
+      },
+      es: {
+        label: "Español",
+        lang: "es-ES",
+        link: "/es/",
+        themeConfig: createLocaleTheme("es", enSourceItems, {
+          lectures: "Lecciones",
+          projects: "Proyectos",
+          resources: "Biblioteca",
+          skills: "Skills",
+          resourceLibrary: "Biblioteca de recursos",
+          tryHarness: "Try Harness ↗",
+          outline: "En esta página",
+          prev: "Anterior",
+          next: "Siguiente",
+          lastUpdated: "Última actualización",
+          returnToTop: "Volver arriba",
+          sidebarMenu: "Menú",
+          darkModeSwitch: "Tema",
+          lightModeSwitchTitle: "Cambiar a tema claro",
+          darkModeSwitchTitle: "Cambiar a tema oscuro"
+        })
+      },
+      fr: {
+        label: "Français",
+        lang: "fr-FR",
+        link: "/fr/",
+        themeConfig: createLocaleTheme("fr", enSourceItems, {
+          lectures: "Cours",
+          projects: "Projets",
+          resources: "Bibliothèque",
+          skills: "Skills",
+          resourceLibrary: "Bibliothèque de ressources",
+          tryHarness: "Try Harness ↗",
+          outline: "Sur cette page",
+          prev: "Précédent",
+          next: "Suivant",
+          lastUpdated: "Dernière mise à jour",
+          returnToTop: "Retour en haut",
+          sidebarMenu: "Menu",
+          darkModeSwitch: "Thème",
+          lightModeSwitchTitle: "Passer au thème clair",
+          darkModeSwitchTitle: "Passer au thème sombre"
+        })
+      },
+      de: {
+        label: "Deutsch",
+        lang: "de-DE",
+        link: "/de/",
+        themeConfig: createLocaleTheme("de", enSourceItems, {
+          lectures: "Lektionen",
+          projects: "Projekte",
+          resources: "Bibliothek",
+          skills: "Skills",
+          resourceLibrary: "Ressourcenbibliothek",
+          tryHarness: "Try Harness ↗",
+          outline: "Auf dieser Seite",
+          prev: "Zurück",
+          next: "Weiter",
+          lastUpdated: "Zuletzt aktualisiert",
+          returnToTop: "Nach oben",
+          sidebarMenu: "Menü",
+          darkModeSwitch: "Theme",
+          lightModeSwitchTitle: "Zum hellen Theme wechseln",
+          darkModeSwitchTitle: "Zum dunklen Theme wechseln"
+        })
+      },
+      ar: {
+        label: "العربية",
+        lang: "ar-SA",
+        link: "/ar/",
+        themeConfig: createLocaleTheme("ar", enSourceItems, {
+          lectures: "المحاضرات",
+          projects: "المشاريع",
+          resources: "المكتبة",
+          skills: "المهارات",
+          resourceLibrary: "مكتبة الموارد",
+          tryHarness: "Try Harness ↗",
+          outline: "في هذه الصفحة",
+          prev: "السابق",
+          next: "التالي",
+          lastUpdated: "آخر تحديث",
+          returnToTop: "العودة إلى الأعلى",
+          sidebarMenu: "القائمة",
+          darkModeSwitch: "السمة",
+          lightModeSwitchTitle: "التبديل إلى السمة الفاتحة",
+          darkModeSwitchTitle: "التبديل إلى السمة الداكنة"
+        })
       },
       vi: {
         label: "Tiếng Việt",

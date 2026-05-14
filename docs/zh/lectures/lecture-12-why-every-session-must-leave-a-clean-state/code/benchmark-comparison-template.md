@@ -1,18 +1,18 @@
-# Benchmark Comparison Template
+# 基准对比模板
 
-Harness A:
+Harness A：
 
-- completion rate
-- average retries
-- bugs caught before human review
+- 完成率
+- 平均重试次数
+- 人工审查前捕获的缺陷
 
-Harness B:
+Harness B：
 
-- completion rate
-- average retries
-- bugs caught before human review
+- 完成率
+- 平均重试次数
+- 人工审查前捕获的缺陷
 
-Interpretation:
+解读：
 
-- Which harness changed the result?
-- Which harness changed the cost of getting the result?
+- 哪个 harness 改变了结果？
+- 哪个 harness 改变了获得结果的成本？

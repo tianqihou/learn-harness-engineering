@@ -1,8 +1,8 @@
-# Code for Lecture 02
+# 第 02 讲代码
 
-Use this folder for small examples that distinguish:
+使用此文件夹存放小型示例，用于区分：
 
-- model behavior
-- harness behavior
-- prompt-only setups
-- environment-backed agent setups
+- 模型行为
+- harness 行为
+- 纯提示词设置
+- 有环境支撑的 Agent 设置

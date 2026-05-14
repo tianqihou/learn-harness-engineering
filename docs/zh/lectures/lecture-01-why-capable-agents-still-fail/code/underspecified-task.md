@@ -1,18 +1,18 @@
-# Underspecified Task Example
+# 规格不足的任务示例
 
-Build a desktop knowledge base app with AI question answering.
+构建一个带有 AI 问答功能的桌面知识库应用。
 
-Constraints:
+约束条件：
 
-- None specified
-- No startup command given
-- No folder structure guidance
-- No data model defined
-- No explicit completion criteria
+- 未指定任何约束
+- 未给出启动命令
+- 未提供文件夹结构指引
+- 未定义数据模型
+- 未明确完成标准
 
-Typical outcomes from this kind of prompt:
+这类提示的典型结果：
 
-- the agent invents a structure ad hoc
-- the app may compile but not start consistently
-- the UI may appear before there is any usable ingest/query path
-- the agent often stops after cosmetic success
+- Agent 临时编造一个结构
+- 应用可能编译通过但无法一致地启动
+- UI 可能在没有任何可用的导入/查询路径之前就出现了
+- Agent 通常在表面成功后就停止了

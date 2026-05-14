@@ -1,10 +1,10 @@
-# Example: Turning Review Feedback into a Rule
+# 示例：将审查反馈转化为规则
 
-Repeated review comment:
+反复出现的审查意见：
 
-> Do not call filesystem utilities from the renderer. Use the preload bridge.
+> 不要从渲染器调用文件系统工具。使用预加载桥接。
 
-Promoted harness rule:
+提升为 harness 规则：
 
-- add a lint or import rule preventing `fs` usage in renderer code
-- add remediation text explaining the preload boundary
+- 添加一个 lint 或 import 规则，阻止在渲染器代码中使用 `fs`
+- 添加修复文本，解释预加载边界

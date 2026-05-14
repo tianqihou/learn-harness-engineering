@@ -1,11 +1,11 @@
-# System of Record Checklist
+# 系统记录检查清单
 
-Can a fresh agent discover the following from the repo alone?
+一个全新的 Agent 能否仅从仓库中发现以下信息？
 
-- What product is being built?
-- What the app should do for users?
-- How the codebase is organized?
-- How the app starts?
-- How health is checked?
-- What work is currently in progress?
-- What quality standards matter?
+- 正在构建什么产品？
+- 应用应该为用户做什么？
+- 代码库是如何组织的？
+- 应用如何启动？
+- 如何检查健康状态？
+- 当前正在进行什么工作？
+- 哪些质量标准很重要？

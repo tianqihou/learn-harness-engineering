@@ -1,7 +1,7 @@
-# Code for Lecture 03
+# 第 03 讲代码
 
-Use this folder for examples of:
+使用此文件夹存放以下方面的示例：
 
-- agent-readable repo structures
-- docs as system of record
-- bad vs good knowledge placement
+- Agent 可读的仓库结构
+- 作为系统记录的文档
+- 糟糕与良好的知识放置方式对比

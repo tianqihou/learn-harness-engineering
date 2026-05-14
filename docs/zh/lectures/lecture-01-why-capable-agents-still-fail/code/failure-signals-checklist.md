@@ -1,10 +1,9 @@
-# Failure Signals Checklist
+# 失败信号检查清单
 
-Use this checklist when reviewing a weak harness run.
+在审查一次弱 harness 运行结果时使用此清单。
 
-- Did the agent ask, or infer incorrectly, how to start the app?
-- Did it create directories or abstractions that do not match the intended
-  product?
-- Did it stop after making a visible UI shell without a complete workflow?
-- Did it leave notes or artifacts that help a future run continue?
-- Could a fresh session understand what happened in under five minutes?
+- Agent 是否询问了如何启动应用，或者做出了错误的推断？
+- 它是否创建了与预期产品不匹配的目录或抽象？
+- 它是否在完成一个可见的 UI 外壳后就停止了，而没有完成完整的工作流？
+- 它是否留下了有助于后续运行继续的笔记或产物？
+- 一个全新的会话是否能在五分钟内理解之前发生了什么？

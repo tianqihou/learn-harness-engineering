@@ -1,8 +1,8 @@
-# Evaluator Rubric Example
+# 评估者评分标准示例
 
-Use 1-5 scoring for each dimension:
+对每个维度使用 1-5 评分：
 
-- Grounding: are answers clearly tied to imported sources?
-- Citation quality: are the source references visible and specific?
-- Functionality: can the user complete the question-answer flow?
-- Product coherence: does the workflow feel integrated?
+- 基础性：答案是否清晰关联到导入的来源？
+- 引用质量：来源引用是否可见且具体？
+- 功能性：用户能否完成问答流程？
+- 产品一致性：工作流是否感觉一体化？

@@ -1,7 +1,7 @@
-# Code for Lecture 04
+# 第 04 讲代码
 
-Use this folder for examples of:
+使用此文件夹存放以下方面的示例：
 
-- monolithic instruction files
-- short entrypoints
-- progressive disclosure patterns
+- 单体式指令文件
+- 短小入口文件
+- 渐进式信息披露模式

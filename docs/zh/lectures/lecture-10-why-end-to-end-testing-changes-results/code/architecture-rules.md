@@ -1,6 +1,6 @@
-# Electron Architecture Rules
+# Electron 架构规则
 
-- Renderer code may not directly access the filesystem.
-- Preload is the only bridge between renderer and Electron main.
-- Retrieval and indexing logic live in service modules, not UI components.
-- Logging should be structured and emitted from service boundaries.
+- 渲染器代码不能直接访问文件系统。
+- 预加载是渲染器与 Electron 主进程之间的唯一桥梁。
+- 检索和索引逻辑位于服务模块中，而非 UI 组件中。
+- 日志应该是结构化的，并从服务边界发出。

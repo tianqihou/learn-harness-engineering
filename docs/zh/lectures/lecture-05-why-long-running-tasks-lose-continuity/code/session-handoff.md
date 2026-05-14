@@ -1,17 +1,17 @@
-# Session Handoff Example
+# 会话交接示例
 
-## Completed
+## 已完成
 
-- Added markdown import support
-- Added a basic document list in the renderer
+- 添加了 markdown 导入支持
+- 在渲染器中添加了基本的文档列表
 
-## Broken or Unverified
+## 有问题或未验证
 
-- Import succeeds for `.md` but fails for large `.txt` files
-- The app starts, but the detail view has not been wired up
+- `.md` 导入成功，但大型 `.txt` 文件导入失败
+- 应用可以启动，但详情视图尚未连接
 
-## Next Best Step
+## 下一步最佳操作
 
-- Fix `.txt` import path
-- Verify import end-to-end
-- Then add the document detail panel
+- 修复 `.txt` 导入路径
+- 端到端验证导入功能
+- 然后添加文档详情面板

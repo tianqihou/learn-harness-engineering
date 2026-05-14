@@ -33,7 +33,7 @@ npm run test:watch       # Vitest watch mode
 - `docs/.vitepress/config.mts` — Nav/sidebar config for both EN and ZH locales
 - `docs/lectures/` — 12 lectures, each with `index.md` + `code/` examples
 - `docs/projects/` — 6 project descriptions
-- `docs/resources/` — Bilingual (en/zh) templates, references, OpenAI advanced pack
+- `docs/<lang>/resources/` — localized templates, references, OpenAI advanced pack
 - `projects/shared/` — Shared Electron + TypeScript + React foundation
 - `projects/project-NN/` — Per-project `starter/` and `solution/` directories
 
@@ -57,6 +57,6 @@ Each project's starter/solution is a complete copy of the Electron app at that e
 - Progressive disclosure: short AGENTS.md entrypoint linking to focused docs
 - Each project has two tsconfigs: `tsconfig.json` (renderer) and `tsconfig.node.json` (main/preload)
 
-## Bilingual Content
+## Multilingual Content
 
-All content exists in both English and Chinese. Documentation lives in shared `docs/lectures/` and `docs/projects/` dirs (content is bilingual within each file). Resources have separate `docs/resources/en/` and `docs/resources/zh/` directories. Keep both in sync.
+Course documentation is organized by locale under `docs/<lang>/`. Keep English as the structural source of truth, keep localized directories in sync, and preserve runnable code examples across languages.

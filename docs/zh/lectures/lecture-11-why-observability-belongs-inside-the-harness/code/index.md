@@ -1,8 +1,8 @@
-# Code for Lecture 11
+# 第 11 讲代码
 
-Use this folder for examples of:
+使用此文件夹存放以下方面的示例：
 
-- planner outputs
-- evaluator rubrics
-- generator/evaluator loops
-- single-agent vs multi-role comparisons
+- 规划器输出
+- 评估者评分标准
+- 生成器/评估者循环
+- 单 Agent 与多角色对比

@@ -1,21 +1,21 @@
-# Harness Components Example
+# Harness 组件示例
 
-For a coding agent working in a local repository:
+对于在本地仓库中工作的编码 Agent：
 
-- Model:
-  the LLM itself
+- 模型：
+  LLM 本身
 
-- Harness:
-  - system prompt
+- Harness：
+  - 系统提示词
   - AGENTS.md
-  - bash tool
-  - file read/write tools
-  - git access
-  - local filesystem
-  - startup scripts
-  - test commands
-  - stop hooks
-  - lint checks
-  - evaluator loop
+  - bash 工具
+  - 文件读写工具
+  - git 访问
+  - 本地文件系统
+  - 启动脚本
+  - 测试命令
+  - 停止钩子
+  - 代码检查
+  - 评估循环
 
-If you change any of the above harness pieces, you change the effective agent.
+如果你更改了上述任何一个 harness 组件，你就改变了实际运行的 Agent。

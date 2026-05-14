@@ -1,8 +1,8 @@
-# Code for Lecture 12
+# 第 12 讲代码
 
-Use this folder for examples of:
+使用此文件夹存放以下方面的示例：
 
-- benchmark slices
-- cleanup tasks
-- entropy reduction examples
-- repeatable harness runs
+- 基准切片
+- 清理任务
+- 熵减示例
+- 可重复的 harness 运行

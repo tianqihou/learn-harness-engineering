@@ -1,6 +1,17 @@
-# Skills（技能集）
+<p align="center">
+  <a href="README.md"><img alt="English" src="https://img.shields.io/badge/English-d9d9d9"></a>
+  <a href="README-CN.md"><img alt="简体中文" src="https://img.shields.io/badge/简体中文-d9d9d9"></a>
+  <a href="README-ZH-TW.md"><img alt="繁體中文" src="https://img.shields.io/badge/繁體中文-d9d9d9"></a>
+  <a href="README-JA.md"><img alt="日本語" src="https://img.shields.io/badge/日本語-d9d9d9"></a>
+  <a href="README-ES.md"><img alt="Español" src="https://img.shields.io/badge/Español-d9d9d9"></a>
+  <a href="README-FR.md"><img alt="Français" src="https://img.shields.io/badge/Français-d9d9d9"></a>
+  <a href="README-KO.md"><img alt="한국어" src="https://img.shields.io/badge/한국어-d9d9d9"></a>
+  <a href="README-AR.md"><img alt="العربية" src="https://img.shields.io/badge/العربية-d9d9d9"></a>
+  <a href="README-VI.md"><img alt="Tiếng_Việt" src="https://img.shields.io/badge/Tiếng_Việt-d9d9d9"></a>
+  <a href="README-DE.md"><img alt="Deutsch" src="https://img.shields.io/badge/Deutsch-d9d9d9"></a>
+</p>
 
-[English](./README.md) · [한국어](./README-KO.md)
+# Skills（技能集）
 
 本目录包含 Learn Harness Engineering 项目的可复用 AI agent 技能。每个技能都是一个自包含的提示词模板，可被 AI 编程智能体（Claude Code、Codex、Cursor、Windsurf 等）加载以执行专业任务。
 
@@ -30,6 +41,13 @@
 skills/
 ├── README.md                    # 英文说明
 ├── README-CN.md                 # 中文说明（本文件）
+├── README-ZH-TW.md              # 繁体中文说明
+├── README-JA.md                 # 日文说明
+├── README-ES.md                 # 西班牙文说明
+├── README-FR.md                 # 法文说明
+├── README-AR.md                 # 阿拉伯文说明
+├── README-VI.md                 # 越南文说明
+├── README-DE.md                 # 德文说明
 └── harness-creator/             # Harness 工程技能
     ├── SKILL.md                 # 主技能定义（双语）
     ├── SKILL.md.en              # 英文版

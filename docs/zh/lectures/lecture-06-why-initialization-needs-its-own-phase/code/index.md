@@ -1,8 +1,8 @@
-# Code for Lecture 06
+# 第 06 讲代码
 
-Use this folder for examples of:
+使用此文件夹存放以下方面的示例：
 
-- initializer outputs
-- init scripts
-- progress files
-- first-run scaffolding
+- 初始化器输出
+- 初始化脚本
+- 进度文件
+- 首次运行脚手架

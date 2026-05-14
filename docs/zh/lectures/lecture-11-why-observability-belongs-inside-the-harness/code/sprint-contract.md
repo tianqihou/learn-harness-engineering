@@ -1,12 +1,12 @@
-# Sprint Contract Example
+# Sprint 契约示例
 
-Sprint goal:
+Sprint 目标：
 
-- Add visible citations to grounded Q&A results
+- 为有据可依的问答结果添加可见引用
 
-Done means:
+完成意味着：
 
-- User asks a question
-- App returns an answer
-- At least one citation is shown
-- Clicking a citation opens the source location in the document view
+- 用户提出一个问题
+- 应用返回一个答案
+- 显示至少一个引用
+- 点击引用在文档视图中打开来源位置

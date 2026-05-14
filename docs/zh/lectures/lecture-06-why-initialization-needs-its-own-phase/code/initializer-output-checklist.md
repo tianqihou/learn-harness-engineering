@@ -1,7 +1,7 @@
-# Initializer Output Checklist
+# 初始化器输出检查清单
 
-- Is there a canonical startup command?
-- Is there a canonical verification command?
-- Is there a first progress artifact?
-- Is there a stable first commit?
-- Is there a visible feature surface for later runs?
+- 是否有标准的启动命令？
+- 是否有标准的验证命令？
+- 是否有第一个进度产物？
+- 是否有稳定的首次提交？
+- 是否有供后续运行使用的可见功能面？

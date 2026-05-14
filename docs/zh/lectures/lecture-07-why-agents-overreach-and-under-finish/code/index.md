@@ -1,8 +1,8 @@
-# Code for Lecture 07
+# 第 07 讲代码
 
-Use this folder for examples of:
+使用此文件夹存放以下方面的示例：
 
-- one-shot failures
-- oversized task prompts
-- incremental task shaping
-- structured feature surfaces
+- 一次性失败
+- 过大的任务提示
+- 增量式任务塑造
+- 结构化的功能面

@@ -1,9 +1,9 @@
-# Cleanup Loop Example
+# 清理循环示例
 
-Recurring cleanup tasks:
+周期性清理任务：
 
-- scan for stale docs
-- scan for structural violations
-- update quality grades
-- open targeted cleanup PRs
-- rerun a fixed benchmark slice after cleanup
+- 扫描过期文档
+- 扫描结构性违规
+- 更新质量评级
+- 创建针对性的清理 PR
+- 清理后重新运行固定的基准切片

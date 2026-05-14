@@ -1,8 +1,8 @@
-# Pass Gate Policy
+# 通过门控策略
 
-A feature may only move from `passes: false` to `passes: true` when:
+一个功能只有在满足以下条件时，才能从 `passes: false` 变为 `passes: true`：
 
-- the expected workflow has been exercised
-- the evidence of success is recorded
-- no blocking error is present in the tested path
-- the implementation does not leave the app in a broken or ambiguous state
+- 预期的工作流已被执行
+- 成功的证据已被记录
+- 被测试的路径中不存在阻塞性错误
+- 实现不会使应用处于损坏或模糊的状态

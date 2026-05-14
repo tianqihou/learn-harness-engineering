@@ -1,7 +1,7 @@
-# Code for Lecture 01
+# 第 01 讲代码
 
-Use this folder for small examples that show:
+使用此文件夹存放小型示例，用于展示：
 
-- a strong model failing in a weak environment
-- underspecified repo setup
-- missing feedback loops
+- 强大模型在弱环境中的失败
+- 规格不完整的仓库设置
+- 缺失的反馈循环

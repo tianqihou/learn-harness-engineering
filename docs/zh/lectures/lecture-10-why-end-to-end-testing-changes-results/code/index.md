@@ -1,8 +1,8 @@
-# Code for Lecture 10
+# 第 10 讲代码
 
-Use this folder for examples of:
+使用此文件夹存放以下方面的示例：
 
-- architecture constraints
-- structural tests
-- taste invariants
-- remediation-oriented lint messages
+- 架构约束
+- 结构测试
+- 品味不变量
+- 以修复为导向的代码检查消息

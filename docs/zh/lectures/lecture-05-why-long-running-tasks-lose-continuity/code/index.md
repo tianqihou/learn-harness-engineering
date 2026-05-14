@@ -1,7 +1,7 @@
-# Code for Lecture 05
+# 第 05 讲代码
 
-Use this folder for examples of:
+使用此文件夹存放以下方面的示例：
 
-- broken multi-session tasks
-- missing continuity artifacts
-- continuity recovery patterns
+- 中断的多会话任务
+- 缺失的连续性产物
+- 连续性恢复模式

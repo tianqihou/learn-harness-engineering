@@ -1,17 +1,17 @@
-# Scope Surface Example
+# 范围界定示例
 
-Task:
+任务：
 
-- Add indexing to the Electron knowledge app
+- 为 Electron 知识库应用添加索引功能
 
-Bad scope shape:
+糟糕的范围定义：
 
-- “Implement indexing”
+- "实现索引"
 
-Better scope shape:
+更好的范围定义：
 
-- Parse imported documents
-- Split documents into chunks
-- Persist chunk metadata
-- Expose indexing status in the UI
-- Add a reindex action
+- 解析导入的文档
+- 将文档拆分为块
+- 持久化块元数据
+- 在 UI 中暴露索引状态
+- 添加重新索引操作

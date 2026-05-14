@@ -1,4 +1,15 @@
-[English](./README.md) · [中文版](./README-CN.md) · **한국어**
+<p align="center">
+  <a href="README.md"><img alt="English" src="https://img.shields.io/badge/English-d9d9d9"></a>
+  <a href="README-CN.md"><img alt="简体中文" src="https://img.shields.io/badge/简体中文-d9d9d9"></a>
+  <a href="README-ZH-TW.md"><img alt="繁體中文" src="https://img.shields.io/badge/繁體中文-d9d9d9"></a>
+  <a href="README-JA.md"><img alt="日本語" src="https://img.shields.io/badge/日本語-d9d9d9"></a>
+  <a href="README-ES.md"><img alt="Español" src="https://img.shields.io/badge/Español-d9d9d9"></a>
+  <a href="README-FR.md"><img alt="Français" src="https://img.shields.io/badge/Français-d9d9d9"></a>
+  <a href="README-KO.md"><img alt="한국어" src="https://img.shields.io/badge/한국어-d9d9d9"></a>
+  <a href="README-AR.md"><img alt="العربية" src="https://img.shields.io/badge/العربية-d9d9d9"></a>
+  <a href="README-VI.md"><img alt="Tiếng_Việt" src="https://img.shields.io/badge/Tiếng_Việt-d9d9d9"></a>
+  <a href="README-DE.md"><img alt="Deutsch" src="https://img.shields.io/badge/Deutsch-d9d9d9"></a>
+</p>
 
 # 스킬(Skills)
 
@@ -35,6 +46,13 @@ skills/
 ├── README.md                    # 영어 버전 (이 파일의 원본)
 ├── README-CN.md                 # 중국어 버전
 ├── README-KO.md                 # 한국어 버전 (이 파일)
+├── README-ZH-TW.md              # 번체 중국어 버전
+├── README-JA.md                 # 일본어 버전
+├── README-ES.md                 # 스페인어 버전
+├── README-FR.md                 # 프랑스어 버전
+├── README-AR.md                 # 아랍어 버전
+├── README-VI.md                 # 베트남어 버전
+├── README-DE.md                 # 독일어 버전
 └── harness-creator/             # 하네스 엔지니어링 스킬
     ├── SKILL.md                 # 주요 스킬 정의 (이중 언어)
     ├── SKILL.md.en              # 영어 전용 버전

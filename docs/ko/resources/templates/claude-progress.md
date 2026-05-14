@@ -4,34 +4,34 @@
 
 ## 현재 검증된 상태 (Current Verified State)
 
-- Repository root:
-- Standard startup path:
-- Standard verification path:
-- Current highest-priority unfinished feature:
-- Current blocker:
+- 저장소 루트 (Repository root):
+- 표준 시작 경로 (Standard startup path):
+- 표준 검증 경로 (Standard verification path):
+- 현재 최우선 미완료 기능 (Current highest-priority unfinished feature):
+- 현재 차단 요인 (Current blocker):
 
 ## 세션 로그 (Session Log)
 
-### Session 001
+### 세션 001
 
-- Date:
-- Goal:
-- Completed:
-- Verification run:
-- Evidence captured:
-- Commits:
-- Files or artifacts updated:
-- Known risk or unresolved issue:
-- Next best step:
+- 날짜 (Date):
+- 목표 (Goal):
+- 완료 항목 (Completed):
+- 검증 실행 (Verification run):
+- 수집된 증거 (Evidence captured):
+- 커밋 (Commits):
+- 업데이트된 파일 또는 산출물 (Files or artifacts updated):
+- 알려진 위험 또는 미해결 이슈 (Known risk or unresolved issue):
+- 다음 최적 단계 (Next best step):
 
-### Session 002
+### 세션 002
 
-- Date:
-- Goal:
-- Completed:
-- Verification run:
-- Evidence captured:
-- Commits:
-- Files or artifacts updated:
-- Known risk or unresolved issue:
-- Next best step:
+- 날짜 (Date):
+- 목표 (Goal):
+- 완료 항목 (Completed):
+- 검증 실행 (Verification run):
+- 수집된 증거 (Evidence captured):
+- 커밋 (Commits):
+- 업데이트된 파일 또는 산출물 (Files or artifacts updated):
+- 알려진 위험 또는 미해결 이슈 (Known risk or unresolved issue):
+- 다음 최적 단계 (Next best step):

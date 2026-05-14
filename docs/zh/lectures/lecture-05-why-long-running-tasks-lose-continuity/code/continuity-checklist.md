@@ -1,6 +1,6 @@
-# Continuity Checklist
+# 连续性检查清单
 
-- Can a fresh agent identify recent work in under five minutes?
-- Is the current stable startup path documented?
-- Is unfinished work clearly identified?
-- Is the next best task visible without reading old chat logs?
+- 一个全新的 Agent 能否在五分钟内识别最近的工作？
+- 当前稳定的启动路径是否有文档记录？
+- 未完成的工作是否被清楚标识？
+- 下一个最佳任务是否在不阅读旧聊天记录的情况下可见？

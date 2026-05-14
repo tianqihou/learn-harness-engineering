@@ -1,6 +1,6 @@
-# Next Task Template
+# 下一个任务模板
 
-- Current highest-priority feature:
-- Why this feature is next:
-- What counts as passing:
-- What must not be changed during this step:
+- 当前最高优先级功能：
+- 为什么这个功能是下一个：
+- 什么算作通过：
+- 在此步骤中不能更改什么：

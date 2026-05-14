@@ -8,9 +8,16 @@ if (typeof window !== 'undefined') {
   const lang = navigator.language || navigator.languages?.[0] || ''
   let locale = 'en/'
   if (lang.startsWith('ko')) locale = 'ko/'
+  else if (lang.toLowerCase().startsWith('zh-tw') || lang.toLowerCase().startsWith('zh-hk') || lang.toLowerCase().startsWith('zh-mo')) locale = 'zh-TW/'
   else if (lang.startsWith('zh')) locale = 'zh/'
   else if (lang.startsWith('ru')) locale = 'ru/'
   else if (lang.startsWith('vi')) locale = 'vi/'
+  else if (lang.startsWith('uz')) locale = 'uz/'
+  else if (lang.startsWith('ja')) locale = 'ja/'
+  else if (lang.startsWith('es')) locale = 'es/'
+  else if (lang.startsWith('fr')) locale = 'fr/'
+  else if (lang.startsWith('de')) locale = 'de/'
+  else if (lang.startsWith('ar')) locale = 'ar/'
   const target = `${base}${locale}`
   if (!window.location.pathname.replace(/\/$/, '').endsWith(target.replace(/\/$/, ''))) {
     window.location.replace(target)

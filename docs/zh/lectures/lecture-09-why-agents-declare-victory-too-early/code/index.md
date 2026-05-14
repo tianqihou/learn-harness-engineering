@@ -1,8 +1,8 @@
-# Code for Lecture 09
+# 第 09 讲代码
 
-Use this folder for examples of:
+使用此文件夹存放以下方面的示例：
 
-- logs as feedback
-- runtime-state visibility
-- clean-state checks
-- recovery examples
+- 日志作为反馈
+- 运行时状态可见性
+- 干净状态检查
+- 恢复示例

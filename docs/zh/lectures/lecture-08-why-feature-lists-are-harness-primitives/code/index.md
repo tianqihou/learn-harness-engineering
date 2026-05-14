@@ -1,8 +1,8 @@
-# Code for Lecture 08
+# 第 08 讲代码
 
-Use this folder for examples of:
+使用此文件夹存放以下方面的示例：
 
-- pass-state gating
-- end-to-end verification
-- weak vs strong completion criteria
-- evaluator-loop examples
+- 通过状态门控
+- 端到端验证
+- 弱与强的完成标准对比
+- 评估循环示例
