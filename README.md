@@ -124,23 +124,23 @@ A harness has five subsystems:
     ┌─────────────────────────────────────────────────────────────────┐
     │                        THE HARNESS                              │
     │                                                                 │
-    │   ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐ │
-    │   │ Instructions  │  │    State     │  │   Verification       │ │
-    │   │              │  │              │  │                      │ │
-    │   │ AGENTS.md    │  │ progress.md  │  │ tests + lint         │ │
-    │   │ CLAUDE.md    │  │ feature_list │  │ type-check           │ │
-    │   │ feature_list │  │ git log      │  │ smoke runs           │ │
-    │   │ docs/        │  │ session hand │  │ e2e pipeline         │ │
-    │   └──────────────┘  └──────────────┘  └──────────────────────┘ │
+    │   ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐  │
+    │   │ Instructions │  │    State     │  │   Verification       │  │
+    │   │              │  │              │  │                      │  │
+    │   │ AGENTS.md    │  │ progress.md  │  │ tests + lint         │  │
+    │   │ CLAUDE.md    │  │ feature_list │  │ type-check           │  │
+    │   │ feature_list │  │ git log      │  │ smoke runs           │  │
+    │   │ docs/        │  │ session hand │  │ e2e pipeline         │  │
+    │   └──────────────┘  └──────────────┘  └──────────────────────┘  │
     │                                                                 │
-    │   ┌──────────────┐  ┌──────────────────────────────────────┐   │
-    │   │    Scope     │  │         Session Lifecycle             │   │
-    │   │              │  │                                      │   │
-    │   │ one feature  │  │ init.sh at start                     │   │
-    │   │ at a time   │  │ clean-state checklist at end          │   │
-    │   │ definition   │  │ handoff note for next session        │   │
-    │   │ of done      │  │ commit only when safe to resume      │   │
-    │   └──────────────┘  └──────────────────────────────────────┘   │
+    │   ┌──────────────┐  ┌──────────────────────────────────────┐    │
+    │   │    Scope     │  │         Session Lifecycle            │    │
+    │   │              │  │                                      │    │
+    │   │ one feature  │  │ init.sh at start                     │    │
+    │   │ at a time    │  │ clean-state checklist at end         │    │
+    │   │ definition   │  │ handoff note for next session        │    │
+    │   │ of done      │  │ commit only when safe to resume      │    │
+    │   └──────────────┘  └──────────────────────────────────────┘    │
     │                                                                 │
     └─────────────────────────────────────────────────────────────────┘
 
@@ -167,23 +167,23 @@ The question isn't "can models write code?" They can. The question is: **can the
 Right now, the answer is: not without a harness.
 
 ```text
-    WITHOUT HARNESS                          WITH HARNESS
-    ==============                          ============
+    WITHOUT HARNESS                            WITH HARNESS
+    ==============                             ============
 
-    Session 1: agent writes code            Session 1: agent reads instructions
-              agent breaks tests                      agent runs init.sh
-              agent says "done"                       agent works on one feature
-              you fix it manually                     agent verifies before claiming done
-                                                       agent updates progress log
-    Session 2: agent starts fresh                    agent commits clean state
-              agent has no memory
-              of what happened before         Session 2: agent reads progress log
-              agent re-does work                       agent picks up exactly where it left off
-              or does something else entirely          agent continues the unfinished feature
-              you fix it again                         you review, not rescue
+    Session 1: agent writes code               Session 1: agent reads instructions
+               agent breaks tests                         agent runs init.sh
+               agent says "done"                          agent works on one feature
+               you fix it manually                        agent verifies before claiming done
+                                                          agent updates progress log
+    Session 2: agent starts fresh                         agent commits clean state
+               agent has no memory
+               of what happened before         Session 2: agent reads progress log
+               agent re-does work                         agent picks up exactly where it left off
+               or does something else entirely            agent continues the unfinished feature
+               you fix it again                           you review, not rescue
 
-    Result: you spend more time                  Result: agent does the work,
-            cleaning up than if you                      you verify the result
+    Result: you spend more time                Result: agent does the work,
+            cleaning up than if you                    you verify the result
             did it yourself
 ```
 
@@ -236,14 +236,14 @@ All six course projects revolve around the same product: **an Electron-based per
     ┌─────────────────────────────────────────────────────┐
     │               Knowledge Base Desktop App            │
     │                                                     │
-    │  ┌──────────────┐  ┌──────────────────────────────┐│
-    │  │ Document List │  │       Q&A Panel              ││
-    │  │              │  │                              ││
-    │  │ doc-001.md   │  │  Q: What is harness eng?    ││
-    │  │ doc-002.md   │  │  A: The environment built    ││
-    │  │ doc-003.md   │  │     around an agent model... ││
-    │  │ ...          │  │     [citation: doc-002.md]   ││
-    │  └──────────────┘  └──────────────────────────────┘│
+    │  ┌──────────────┐  ┌──────────────────────────────┐ │
+    │  │ Document List│  │       Q&A Panel              │ │
+    │  │              │  │                              │ │
+    │  │ doc-001.md   │  │  Q: What is harness eng?     │ │
+    │  │ doc-002.md   │  │  A: The environment built    │ │
+    │  │ doc-003.md   │  │     around an agent model... │ │
+    │  │ ...          │  │     [citation: doc-002.md]   │ │
+    │  └──────────────┘  └──────────────────────────────┘ │
     │                                                     │
     │  ┌─────────────────────────────────────────────────┐│
     │  │ Status Bar: 42 docs | 38 indexed | last sync 3m ││
@@ -275,8 +275,8 @@ The course is designed to be done in order. Each phase builds on the last.
     L01  Strong models ≠ reliable         L03  Repository as single
          execution                              source of truth
     L02  What harness actually means
-                                       L04  Split instructions across
-         |                                   files, not one giant file
+                                         L04  Split instructions across
+         |                                    files, not one giant file
          v
     P01  Prompt-only vs.                       |
          rules-first comparison                v
@@ -288,7 +288,7 @@ The course is designed to be done in order. Each phase builds on the last.
 
     L05  Keep context alive               L07  Draw clear task boundaries
          across sessions
-                                       L08  Feature lists as harness
+                                          L08  Feature lists as harness
     L06  Initialize before every               primitives
          agent session
                                                |
@@ -355,19 +355,19 @@ Each phase takes about a week if you're going part-time. If you want to go faste
     P01  Prompt-only vs. rules-first       You see the problem
      |
      v
-    P02  Agent-readable workspace           You restructure the repo
+    P02  Agent-readable workspace          You restructure the repo
      |
      v
-    P03  Multi-session continuity           You connect sessions
+    P03  Multi-session continuity          You connect sessions
      |
      v
-    P04  Runtime feedback & scope           You add feedback loops
+    P04  Runtime feedback & scope          You add feedback loops
      |
      v
-    P05  Self-verification                  You make the agent check itself
+    P05  Self-verification                 You make the agent check itself
      |
      v
-    P06  Complete harness (capstone)        You build the full system
+    P06  Complete harness (capstone)       You build the full system
 
     Each project's solution becomes the next project's starter.
     The app evolves. Your harness skills grow with it.
@@ -399,13 +399,13 @@ One of the core ideas in this course: **the agent's session should follow a stru
     ======================
 
     ┌──────────────────────────────────────────────────────────────────┐
-    │  START                                                          │
+    │  START                                                           │
     │                                                                  │
-    │  1. Agent reads AGENTS.md / CLAUDE.md                           │
-    │  2. Agent runs init.sh (install, verify, health check)          │
-    │  3. Agent reads claude-progress.md (what happened last time)    │
-    │  4. Agent reads feature_list.json (what's done, what's next)    │
-    │  5. Agent checks git log (recent changes)                       │
+    │  1. Agent reads AGENTS.md / CLAUDE.md                            │
+    │  2. Agent runs init.sh (install, verify, health check)           │
+    │  3. Agent reads claude-progress.md (what happened last time)     │
+    │  4. Agent reads feature_list.json (what's done, what's next)     │
+    │  5. Agent checks git log (recent changes)                        │
     │                                                                  │
     │  SELECT                                                          │
     │                                                                  │
@@ -415,17 +415,17 @@ One of the core ideas in this course: **the agent's session should follow a stru
     │  EXECUTE                                                         │
     │                                                                  │
     │  8. Agent implements the feature                                 │
-    │  9. Agent runs verification (tests, lint, type-check)           │
-    │  10. If verification fails: fix and re-run                      │
-    │  11. If verification passes: record evidence                    │
+    │  9. Agent runs verification (tests, lint, type-check)            │
+    │  10. If verification fails: fix and re-run                       │
+    │  11. If verification passes: record evidence                     │
     │                                                                  │
     │  WRAP UP                                                         │
     │                                                                  │
-    │  12. Agent updates claude-progress.md                           │
-    │  13. Agent updates feature_list.json                            │
-    │  14. Agent records what's still broken or unverified            │
-    │  15. Agent commits (only when safe to resume)                   │
-    │  16. Agent leaves clean restart path for next session           │
+    │  12. Agent updates claude-progress.md                            │
+    │  13. Agent updates feature_list.json                             │
+    │  14. Agent records what's still broken or unverified             │
+    │  15. Agent commits (only when safe to resume)                    │
+    │  16. Agent leaves clean restart path for next session            │
     │                                                                  │
     └──────────────────────────────────────────────────────────────────┘
 
@@ -542,7 +542,7 @@ learn-harness-engineering/
 │       └── vi/                    # Vietnamese templates, checklists, guides
 ├── projects/
 │   ├── shared/                    # Shared Electron + TypeScript + React foundation
-│   └── project-NN/               # Per-project starter/ and solution/ directories
+│   └── project-NN/                # Per-project starter/ and solution/ directories
 ├── skills/                        # Reusable AI agent skills
 │   └── harness-creator/           # Harness engineering skill
 ├── package.json                   # VitePress + dev tooling
