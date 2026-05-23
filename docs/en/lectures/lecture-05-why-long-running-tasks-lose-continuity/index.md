@@ -1,27 +1,25 @@
-[中文版本 →](../../../zh/lectures/lecture-05-why-long-running-tasks-lose-continuity/)
+[中文版 →](../../../zh/lectures/lecture-05-why-long-running-tasks-lose-continuity/)
 
 > Code examples: [code/](https://github.com/walkinglabs/learn-harness-engineering/blob/main/docs/en/lectures/lecture-05-why-long-running-tasks-lose-continuity/code/)
 > Practice project: [Project 03. Multi-session continuity](./../../projects/project-03-multi-session-continuity/index.md)
 
-# Lecture 05. Keep Context Alive Across Sessions
+# Lecture 05. Keeping Context Alive Across Sessions
 
-You ask Claude Code to implement a complete feature. It runs for 30 minutes, does most of the work, but context is running low. You start a new session to continue — and discover it doesn't remember what decisions were made last time, why option A was chosen over option B, which files were already modified, or what state the tests are in. It spends 15 minutes re-exploring the project, and might be inconsistent with the previous approach.
+You ask Claude Code to implement a complete feature. It runs for 30 minutes, does most of the work, but context is running low. You start a new session to continue — and discover it doesn't remember what decisions were made last time, why option A was chosen over option B, which files were already modified, or what state the tests are in. It spends 15 minutes re-exploring the project, and might take an inconsistent approach from last time.
 
-Imagine if you were a craftsman who forgot everything each morning upon waking. You'd have to reacquaint yourself with the entire construction site — which wall is half-built, why red bricks were chosen over blue ones, where the plumbing runs got to. Worse, you might tear out a window that was already installed yesterday, simply because you didn't remember it was done.
-
-This is exactly the predicament AI coding agents face in cross-session tasks. This lecture explains why agents "black out" during long tasks, and how structured state persistence can make them like a craftsman who keeps a reliable daily journal — still amnesiac, but the journal remembers everything.
+This is the real dilemma AI coding agents face in cross-session tasks. This lecture explains why agents "lose the thread" during long tasks, and how structured state persistence lets a new session quickly pick up where the last one left off.
 
 ## Context Windows: Not Infinite
 
-Context windows are finite. This isn't solvable by model upgrades — even if window sizes grow to 1M tokens, complex tasks will still exhaust them. Because agents aren't just generating code; they're understanding codebases, tracking their own decision history, processing tool output, and maintaining conversation context. All this information grows faster than window expansion.
+Context windows are finite. This isn't a problem that model upgrades can solve — even if window sizes grow to 1M tokens, complex tasks will still exhaust them. Agents aren't just generating code; they're understanding codebases, tracking their own decision history, processing tool output, and maintaining conversation context. All this information grows faster than window expansion.
 
-A deeper problem: information the agent produces isn't uniformly important. Intermediate reasoning steps contain the "why" of decisions — why option B was chosen over A, why this library instead of that one, why a particular optimization was skipped. The final output only contains the "what" — the code itself. Compaction strategies usually preserve the latter but lose the former. The next session sees the code but doesn't know why it's written that way, and might "optimize" away a deliberate design decision.
+A deeper problem: the information agents produce isn't uniformly important. Intermediate reasoning steps contain the "why" of decisions — why option A was chosen over B, why this library instead of that one, why a particular optimization was skipped. The final output only contains the "what" — the code itself. Compaction strategies usually preserve the latter but lose the former. The next session sees the code but doesn't know why it's written that way, and might "optimize" away a deliberate design decision.
 
-Anthropic discovered something fascinating in their long-running agent research: when agents sense context is running low, they exhibit "premature convergence" behavior — rushing to finish current work, skipping verification steps, or choosing a simple solution over the optimal one. It's like realizing time is running out on an exam and quickly guessing on the remaining multiple-choice questions. Anthropic calls this "context anxiety."
+Anthropic observed something interesting in their long-running agent research: when agents sense context is running low, they exhibit "premature convergence" behavior — rushing to finish current work, skipping verification steps, or choosing a simple solution over the optimal one. Anthropic calls this "context anxiety."
 
 ## Session Continuity Flow
 
-Without continuity artifacts, every new session is a disaster:
+Without continuity artifacts, every new session has to start from scratch:
 
 ```mermaid
 flowchart LR
@@ -50,30 +48,30 @@ flowchart LR
 
 ## Core Concepts
 
-- **Context windows are finite**: No matter what window size is claimed (128K, 200K, 1M), long tasks will eventually exhaust them. After exhaustion, either compaction (losing information) or reset (new session) is required. Both lose something.
-- **Continuity artifacts**: Persisted state files that let a new session unambiguously resume where the last one left off. The basic form: progress log + verification record + next actions. That craftsman's journal.
-- **Rebuild cost**: The time a new session needs to reach an executable state. Good harnesses can compress rebuild cost from 15 minutes to 3 minutes.
-- **Drift**: The gap between the agent's understanding and the actual state of the code repository. Every session boundary introduces drift; without control, it compounds.
-- **Context anxiety**: A phenomenon observed by Anthropic — agents exhibit premature convergence behavior when approaching perceived context limits, ending tasks early to avoid information loss. It's an irrational resource anxiety.
-- **Compaction vs reset**: Compaction summarizes context within the same session (keeps "what," may lose "why"); reset opens a new session rebuilding from persisted state (clean but depends on artifact completeness).
+- **Context windows are finite**: No matter what window size is claimed (128K, 200K, 1M), long tasks will eventually exhaust them. After exhaustion, either compaction (losing information) or reset (starting a new session) is required — both lose something.
+- **Continuity artifacts**: Persisted state files that let a new session unambiguously resume where the last one left off. The most basic form includes progress logs, verification records, and next actions.
+- **Rebuild cost**: The time a new session needs to reach an executable state. A good harness can compress rebuild cost from 15 minutes to 3 minutes.
+- **Drift**: The gap between the agent's understanding and the actual state of the code repository. Every session boundary introduces drift; without control, it compounds session after session.
+- **Context anxiety**: A phenomenon observed by Anthropic — agents exhibit premature convergence behavior when approaching context limits, ending tasks early to avoid information loss. At its core, it's an irrational resource anxiety.
+- **Compaction vs. reset**: Compaction summarizes context within the same session (keeps "what," may lose "why"); reset opens a new session rebuilding from persisted state (clean but depends on artifact completeness).
 
 ## What Happens When Continuity Breaks
 
-The previous session spent significant context budget analyzing three approaches and choosing option B. This session's agent doesn't know about that analysis and might re-decide based on incomplete information — potentially choosing option A. Like the amnesiac craftsman who doesn't remember why red bricks were chosen, looks at the blue ones today and thinks they're prettier, and tears down yesterday's wall to rebuild.
+The previous session spent significant context budget analyzing three approaches and choosing option B. This session's agent doesn't know about that analysis and might re-decide based on incomplete information — potentially choosing option A. Same information, different conclusion, because the decision-making context is gone.
 
-Even worse is duplicate work. The agent isn't sure whether certain work was already completed and does it again. Or worse — does half of it, discovers a conflict with the existing implementation, and has to rework. On a construction site, two teams can't build the same wall simultaneously — but without progress records, the new crew has no idea someone is already working on it.
+Even worse is duplicate work. The agent isn't sure whether certain work was already completed and does it again. Or worse — does half of it, discovers a conflict with the existing implementation, and has to rework. Without progress records, the new session has no idea what's already been done.
 
-Over several sessions, the implementation direction may have silently drifted from the original requirements. Each new session has a slightly different understanding of the project goals. Like a game of telephone — after ten people pass the message, "pick me up a coffee" might become "buy me a coffee machine."
+Over several sessions, the implementation direction may have silently drifted from the original requirements. Each new session has a slightly different understanding of the project goals. Each deviation compounds on the last, and the final result may be far removed from the original intent.
 
 There's also the verification gap. The previous session's verification results (which tests pass, which fail, why they fail) weren't recorded. The new session has to re-run all verification to understand the current state. Every session re-diagnoses from scratch, every time wasting precious context.
 
 Both OpenAI and Anthropic emphasize structured state persistence in their documentation. OpenAI's harness engineering article treats the repository as an "operational record" — every operation's results should leave traceable evidence in the repo. Anthropic's long-running agents documentation specifically recommends "handoff files" — structured documents containing current state, known issues, and next actions.
 
-## A Journal for the Amnesiac Craftsman
+## Practical Approaches to State Persistence
 
-Core approach: **Treat the agent like a brilliant engineer with amnesia.** Before it "clocks out," it must write down critical information so the next "shift" agent can pick up quickly.
+Core approach: **Treat the agent like an engineer whose short-term memory gets wiped at every session.** Before it "clocks out," it must write down critical information so the next "shift" agent can pick up quickly.
 
-**Tool 1: Progress file (PROGRESS.md).** The most basic continuity artifact — the core of the journal:
+**Tool 1: Progress file (PROGRESS.md).** The most basic continuity artifact:
 
 ```markdown
 # Project Progress
@@ -101,7 +99,7 @@ Core approach: **Treat the agent like a brilliant engineer with amnesia.** Befor
 3. Update API documentation
 ```
 
-**Tool 2: Decision log (DECISIONS.md).** Record important design decisions and reasons. No need for detailed design documents — just "what decision, why, when" — the memos in the journal:
+**Tool 2: Decision log (DECISIONS.md).** Record important design decisions and reasons. No need for detailed design documents — just "what decision, why, when":
 
 ```markdown
 # Design Decisions
@@ -129,17 +127,17 @@ Core approach: **Treat the agent like a brilliant engineer with amnesia.** Befor
 3. Commit all completed work
 ```
 
-**Mixed strategy**: Not every task needs a context reset. Short tasks (under 30 minutes) can complete within one session. Long tasks (spanning sessions) must use progress files and decision logs for continuity. Decision criterion: if a task needs more than 60% of the window, start preparing handoff.
+**Mixed strategy**: Not every task needs a context reset. Short tasks (under 30 minutes) can complete within one session. Long tasks (spanning sessions) must use progress files and decision logs for continuity. Decision criterion: if a task needs more than 60% of the window, start preparing the handoff.
 
-### Deep Dive on Context Anxiety
+### A Deeper Look at Context Anxiety
 
-Anthropic's March 2026 research further revealed the specific manifestations of context anxiety: on Sonnet 4.5, when context approaches the window limit, the agent shows strong "premature convergence" behavior. It's like realizing time is almost up on an exam and quickly filling in random answers on the multiple choice.
+Anthropic's March 2026 research further revealed the specific manifestations of context anxiety: on Sonnet 4.5, when context approaches the window limit, the agent shows strong "premature convergence" behavior.
 
 Two strategies address this:
 
 **Compaction**: Summarizing early conversation within the same session. Advantage: maintains continuity, the agent can see "what." Disadvantage: "why" is often lost in summaries — why option B was chosen over A, why a particular optimization was skipped. More critically, compaction doesn't eliminate context anxiety — the agent knows context was once large, and psychologically still tends to rush to closure.
 
-**Context reset**: Completely clearing context, opening a new session, rebuilding from persisted artifacts. Advantage: clean mental state — the new session has no "I'm running out of time" anxiety. Disadvantage: depends on the completeness of handoff artifacts. If the journal is missing critical information, the new session may waste time going in the wrong direction.
+**Context reset**: Completely clearing context, opening a new session, rebuilding from persisted artifacts. Advantage: clean mental state — the new session has no "I'm running out of time" anxiety. Disadvantage: depends on the completeness of handoff artifacts. If the progress file is missing critical information, the new session may waste time going in the wrong direction.
 
 Anthropic's actual data: for Sonnet 4.5, context anxiety is severe enough that compaction alone isn't sufficient — context reset becomes a critical component of harness design. But for Opus 4.5, this behavior is greatly diminished, and compaction can manage context without relying on resets. This means: **harness design needs specific understanding of the target model, not a one-size-fits-all template.**
 
@@ -149,18 +147,18 @@ Anthropic's actual data: for Sonnet 4.5, context anxiety is severe enough that c
 
 An agent was tasked with implementing a blog system with user authentication — 12 feature points, estimated 5 sessions needed.
 
-**Baseline without the journal**: Session 1 implemented the user model and basic routes. Session 2 started without the agent remembering the auth middleware's interface contract, spending ~15 minutes inferring the previous design intent. By session 3, accumulated drift caused the agent to start reimplementing already-completed features. By session 5, the repo contained lots of redundant code but the core auth feature still hadn't passed end-to-end tests. Only 7 of 12 feature points completed, 3 with hidden correctness issues. Like the craftsman who never writes in his journal — by day five, the construction site is chaos, some walls built twice, some that should have been built never started.
+**Baseline without continuity artifacts**: Session 1 implemented the user model and basic routes. Session 2 started without the agent remembering the auth middleware's interface contract, spending ~15 minutes inferring the previous design intent. By session 3, accumulated drift caused the agent to start reimplementing already-completed features. By session 5, the repo contained lots of redundant code but the core auth feature still hadn't passed end-to-end tests. Only 7 of 12 feature points completed, 3 with hidden correctness issues.
 
-**With the journal**: Using progress files, decision logs, verification records, and git checkpoints. State report updated automatically at each session end. Session 2's rebuild cost dropped to ~3 minutes. By session 5, all 12 feature points completed and verified.
+**With continuity artifacts**: Using progress files, decision logs, verification records, and git checkpoints. State report updated automatically at each session end. Session 2's rebuild cost dropped to ~3 minutes. By session 5, all 12 feature points completed and verified.
 
-Quantitative comparison: rebuild time reduced ~78%, feature completion rate from 58% to 100%, hidden defect rate from 43% down to 8%. The craftsman is still amnesiac, but with the journal, each day starts from where yesterday stopped, not from zero.
+Quantitative comparison: rebuild time reduced ~78%, feature completion rate from 58% to 100%, hidden defect rate from 43% down to 8%.
 
 ## Key Takeaways
 
-- Context windows are a finite resource. Long tasks will span sessions, and sessions will lose information — like the craftsman who forgets each day, this is objective reality.
-- The solution isn't bigger windows — it's better state persistence. Progress files + decision logs + git checkpoints — give the amnesiac craftsman a reliable journal.
-- Treat the agent like an engineer with amnesia: before "clocking out," write down what was done, why, and what's next.
-- Rebuild cost is the key metric. Good harnesses should get new sessions to an executable state within 3 minutes.
+- Context windows are a finite resource. Long tasks will span sessions, and sessions will lose information — this is objective reality.
+- The solution isn't bigger windows — it's better state persistence. Progress files, decision logs, and git checkpoints work together to let new sessions pick up where previous ones left off.
+- Treat the agent like an engineer whose short-term memory gets wiped every session: before "clocking out," write down what was done, why, and what's next.
+- Rebuild cost is the key metric. A good harness should get new sessions to an executable state within 3 minutes.
 - Mixed strategy: short tasks within sessions, long tasks with structured artifacts for continuity.
 
 ## Further Reading

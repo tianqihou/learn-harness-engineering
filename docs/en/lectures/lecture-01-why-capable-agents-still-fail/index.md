@@ -1,60 +1,54 @@
-[中文版本 →](../../../zh/lectures/lecture-01-why-capable-agents-still-fail/)
+[中文版 →](../../../zh/lectures/lecture-01-why-capable-agents-still-fail/)
 
 > Code examples: [code/](https://github.com/walkinglabs/learn-harness-engineering/blob/main/docs/en/lectures/lecture-01-why-capable-agents-still-fail/code/)
-> Practice project: [Project 01. Prompt-only vs. rules-first](./../../projects/project-01-baseline-vs-minimal-harness/index.md)
+> Practice project: [Project 01. Prompt-Only vs. Rules-First: How Much Difference Does a Harness Make](./../../projects/project-01-baseline-vs-minimal-harness/index.md)
 
 # Lecture 01. Strong Models Don't Mean Reliable Execution
 
-You consider yourself well-traveled in the AI world — Claude Pro subscription, GPT-4o API key, SWE-bench leaderboard numbers memorized. One day you finally hand a real project to an AI agent, brimming with confidence. The result? It adds a feature but breaks the tests, fixes a bug but introduces two more, runs for 20 minutes and proudly declares "done" — and you look at the code and it's not what you asked for at all.
+As of late 2025, the strongest coding agents on SWE-bench Verified achieve roughly a 50-60% pass rate. That number sounds decent at first glance — but don't celebrate just yet. Those are carefully selected tasks with clear issue descriptions and ready-made test cases. Hand the agent your everyday requirements instead — vague specs, no existing tests, implicit business rules scattered across the codebase — and the pass rate only drops further. You hand off a task brimming with confidence, the agent runs for 20 minutes and tells you "all done," and you look at the code: it added a feature but broke the tests, fixed a bug but introduced new ones, and it's not even what you asked for.
 
-Your first instinct? "This model isn't good enough. Time to upgrade." Hold on. Before you reach for your wallet, consider that the problem might not be the model at all.
-
-Let's look at some numbers. As of late 2025, the strongest coding agents on SWE-bench Verified achieve roughly 50-60%. And that's on carefully selected tasks with clear issue descriptions and existing test cases. Move to your daily development environment — vague requirements, no existing tests, implicit business rules scattered everywhere — and that number only goes down.
-
-But behind these numbers lies a counterintuitive truth.
+When this happens, most people's first reaction is "the model isn't good enough — let me try a more expensive one." Before you reach for your wallet, consider that the problem might not be the model at all.
 
 ## Same Horse, Different Fates
 
-Anthropic ran a controlled experiment. Same prompt ("build a 2D retro game maker"), same model (Opus 4.5). First run: bare, no support — 20 minutes, $9, the game's core features didn't work at all. Second run: full harness (planner + generator + evaluator three-agent architecture) — 6 hours, $200, the game was playable.
+Anthropic ran a controlled experiment that illustrates the point perfectly. Same prompt ("build a 2D retro game editor"), same model (Opus 4.5), two runs. First run: bare, no support — 20 minutes, $9, the game's core features didn't work. Second run: full harness — a planner, generator, evaluator three-agent architecture — 6 hours, $200, the game was fully playable.
 
 They didn't change the model. Opus 4.5 was still Opus 4.5. What changed was the tack.
 
-OpenAI's 2025 harness engineering article puts it plainly: Codex in a well-harnessed repository goes from "unreliable" to "reliable." Note their wording — not "a bit better," but a qualitative shift. Like a thoroughbred: you can ride it without proper tack, but you won't go far, won't go fast, and falling off is no surprise. The harness is that full set of tack — **everything in the engineering infrastructure outside the model weights.**
+OpenAI's 2025 harness engineering article puts it even more bluntly. They said that Codex in a well-harnessed repository goes from "unreliable" straight to "reliable." Note the wording — not "a bit better," but a qualitative leap. Harness here means **all the engineering infrastructure beyond the model weights.**
 
 ## Where Agents Actually Get Stuck
 
-So what specifically goes wrong?
+The specific failure modes really come down to just a handful.
 
-The most common: you never clearly defined the task. You say "add a search feature," and the agent's understanding is completely different from yours — search what? Full-text or structured? Pagination? Highlighting? You didn't specify, so the agent guesses. A correct guess is luck; a wrong one costs more to fix than being specific would have cost in the first place. It's like walking into a restaurant and telling the chef "I'll have fish" — whether you get it braised, steamed, or in a hot pot is entirely up to chance.
+The first type: the task was never clearly defined in the first place. "Add a search feature" — that sentence means almost nothing. Search what? Full-text or structured queries? Should results be paginated? Highlighted? You didn't spell it out, so the agent has to guess. A correct guess is luck; a wrong one means rework that costs several times more than being specific would have in the first place.
 
-Even when you do specify, the project has implicit architectural conventions the agent doesn't know. Your team standardized on SQLAlchemy 2.0 syntax, but the agent writes 1.x code by default. All API endpoints must use OAuth 2.0 authentication, but that rule only exists in your head and a Slack message from three months ago. The agent can't see these — it's not that it doesn't want to comply, it literally doesn't know these rules exist.
+Architectural conventions are another hidden pitfall. Your whole team uses the new SQLAlchemy 2.0 syntax, but the agent writes 1.x code by default. All API endpoints must go through OAuth 2.0 authentication, but that rule only exists in your head and a Slack message from three months ago. The agent has no idea — it's not that it doesn't want to comply, it literally has never seen the rule.
 
-The environment is a trap too. Incomplete dev environment, missing dependencies, wrong tool versions. The agent burns precious context window on `pip install` failures and Node version mismatches instead of solving your actual task. Like hiring a skilled carpenter but forgetting to provide a hammer, nails, or a level workbench — no matter how talented, they can't do the job.
+The environment is a frequent source of trouble too. Incomplete dev setup, missing dependencies, wrong tool versions — the agent burns precious context window on `pip install` errors and Node version conflicts instead of doing the actual work you gave it.
 
-Even more common: there's simply no way to verify. No tests, no lint, or verification commands never communicated to the agent. The agent writes code, looks at it, decides it's fine, says "done." It's like asking a student to submit homework with no answer key — they think they got it right, but when you grade it there's a pile of errors. Anthropic also observed an interesting phenomenon: when agents sense context is running low, they rush to finish, skip verification, and choose a simple solution over the optimal one. They call it "context anxiety" — the same thing that happens when you realize time is almost up on an exam and start randomly guessing on the remaining multiple-choice questions.
+Even more common is the complete absence of verification. No tests, no lint, or verification commands that were never communicated to the agent. The agent writes code, looks it over, decides it seems fine, and declares completion. Anthropic also observed an interesting phenomenon: when agents sense their context is running low, they rush to finish, skip verification steps, and choose a simple solution over the optimal one. They call this "context anxiety."
 
-Long tasks spanning sessions are even worse — all discoveries from the previous session are lost, and every new session has to re-explore the project structure and re-understand the code organization. Agents without persistent state see failure rates spike sharply on tasks exceeding 30 minutes.
+Tasks that span multiple sessions fare even worse. All discoveries from the previous session are lost. Every new session has to re-explore the project structure and re-understand the code organization. Agents without persistent state see failure rates spike sharply on tasks exceeding 30 minutes.
 
 ## Key Terminology
 
-With these scenarios in mind, these concepts are no longer just jargon:
+With the scenarios above in mind, these concepts are no longer just jargon:
 
-- **Capability Gap**: The huge gulf between model performance on benchmarks and performance on real tasks. A 50-60% pass rate on SWE-bench Verified means nearly half of real issues can't be resolved.
+- **Capability Gap**: The huge gulf between model performance on benchmarks and performance on real tasks. A 50-60% pass rate on SWE-bench Verified means nearly half of real issues go unresolved.
 - **Harness**: Everything outside the model — instructions, tools, environment, state management, verification feedback. If it's not model weights, it's harness. What we've been calling the "tack."
-- **Harness-Induced Failure**: The model has enough capability, but the execution environment has structural defects. Anthropic's controlled experiment already proved this.
-- **Verification Gap**: The gap between the agent's confidence in its output and actual correctness. The agent says "I'm done" when it's not done — this is the most common failure mode.
+- **Harness-Induced Failure**: The model has sufficient capability, but the execution environment has structural defects. Anthropic's controlled experiment already proved this.
+- **Verification Gap**: The gap between the agent's confidence in its output and actual correctness. The agent says "I'm done" when it's not — this is the most common failure mode.
 - **Diagnostic Loop**: Execute, observe failure, attribute to a specific harness layer, fix that layer, re-execute. This is the core methodology of harness engineering.
-- **Definition of Done**: A set of machine-verifiable conditions — tests pass, lint is clean, type checks pass. Without an explicit definition of done, the agent will invent its own.
+- **Definition of Done**: A set of conditions that can be verified by command — tests pass, lint is clean, type checks pass. Without an explicit definition of done, the agent will invent its own.
 
 ## When Things Fail, Fix the Harness First
 
-Core principle: **When things fail, don't swap the model first — check the harness.** If the same model succeeds on similar, well-structured tasks, assume it's a harness problem. It's like a car breaking down — you don't immediately suspect the engine. You check if it's out of gas first.
+There is really only one core principle: **When things fail, don't swap the model first — check the harness.** If the same model succeeds on similar, well-structured tasks, assume it's a harness problem.
 
-Concrete steps:
+What does this look like in practice? Attribute every failure to a specific layer. Don't just say "the model isn't good enough." Ask yourself: was the task unclear? Was context insufficient? Were there no verification methods? Map each failure to one of the five defense layers — task specification, context provision, execution environment, verification feedback, state management. Build this habit, and you'll find "the model isn't good enough" appearing less and less in your logs.
 
-**Attribute every failure to a specific layer.** Don't just say "the model sucks." Ask: was the task unclear? Was context insufficient? Were there no verification methods? Map each failure to one of the five failure layers: task specification, context provision, execution environment, verification feedback, and state management. These are the practical diagnostic layers, not the six glossary terms above. Build this habit, and you'll find "the model isn't good enough" appearing less and less in your logs.
-
-**Write an explicit Definition of Done for every task.** Don't say "add a search feature." Say:
+Then, write an explicit Definition of Done for every task. Don't say "add a search feature." Spell it out:
 ```
 Completion criteria:
 - New endpoint GET /api/search?q=xxx
@@ -64,19 +58,15 @@ Completion criteria:
 - Type checking passes (mypy --strict)
 ```
 
-**Create an AGENTS.md file.** Put it in the repo root to tell the agent the project's tech stack, architectural conventions, and verification commands. This is the first step in harness engineering and the highest-ROI step you can take. One `AGENTS.md` file might be more effective than upgrading to a more expensive model — I'm not joking.
+Place an `AGENTS.md` file in the repo root, telling the agent about the project's tech stack, architectural conventions, and verification commands. This is the first step in harness engineering, and the one with the highest return on investment. One `AGENTS.md` file might be more effective than upgrading to a more expensive model — and that's not a joke.
 
-**Build a diagnostic loop.** Don't treat failures as "the model being dumb again." Treat them as signals that your harness has a defect. Each failure, identify the layer, fix it, never fail that way again. After a few rounds, your harness gets stronger and agent performance stabilizes. Like road repair — every pothole you fill makes the next stretch smoother.
-
-**Quantify improvements.** Keep a simple log: did each task succeed or fail, and which layer caused the failure. After a few rounds you'll see which layer is the bottleneck — focus your energy there.
+From there, build a diagnostic loop. Don't treat failures as "the model being dumb again." Treat them as signals that your harness has exposed a defect. Each failure, identify the layer, fix it, and never fail that way again. After a few rounds, your harness gets stronger and agent performance stabilizes. A simple log is enough — for each task, did it succeed or fail, and which layer caused the failure. After a few rounds you'll see which layer is the bottleneck, and you can focus your energy there.
 
 ## The Million-Line Experiment
 
-OpenAI ran an aggressive experiment in 2025: use Codex to build a complete internal product from an empty git repository. Five months later, the repo had roughly one million lines of code — application logic, infrastructure, tooling, documentation, internal dev tools — all agent-generated. Three engineers drove Codex, opening and merging about 1,500 PRs. An average of 3.5 PRs per person per day.
+In 2025, three engineers at OpenAI started an experiment. The rules were simple: they wouldn't write code themselves — only Codex would. Starting from an empty git repository, five months later the repo contained roughly one million lines of code. Application logic, infrastructure, tooling, documentation — all agent-generated. The three engineers opened a total of 1,500 PRs, an average of 3.5 per person per day.
 
-The key constraint: **humans never write code directly.** This wasn't a gimmick — it was designed to force the team to figure out what changes when the engineer's primary job is no longer writing code, but designing environments, expressing intent, and building feedback loops.
-
-Early progress was slower than expected. Not because Codex wasn't capable, but because the environment wasn't complete enough — the agent lacked necessary tools, abstractions, and internal structures to advance high-level objectives. The engineers' work became: breaking large goals into small building blocks (design, code, review, test), letting the agent assemble them, then using those blocks to unlock more complex tasks. When something failed, the fix was almost never "try harder" — it was "what capability is the agent missing, and how do we make it both understandable and executable?"
+Early progress was surprisingly slow. Codex wasn't bad — it just lacked tools and structures complete enough to drive toward high-level objectives. The three engineers gradually found the pattern: break large goals into small building blocks — design, code, review, test — let the agent assemble them one by one, then use those blocks to compose more complex tasks. Whenever something went wrong, the problem was almost never "not trying hard enough." It was always "what is the agent still missing, and can that missing capability be supplied in a way that is both understandable and executable?"
 
 This experiment directly proves this lecture's core thesis: **the same model produces fundamentally different output in a bare environment versus one with a complete harness.** The model didn't change. The environment did.
 
@@ -84,7 +74,7 @@ This experiment directly proves this lecture's core thesis: **the same model pro
 
 ## A More Down-to-Earth Example
 
-A team used Claude Sonnet to add a new API endpoint to a mid-sized Python web app (FastAPI + PostgreSQL + Redis, ~15,000 lines of code).
+A team used Claude Sonnet to add new API endpoints to a mid-sized Python web app (FastAPI + PostgreSQL + Redis, ~15,000 lines of code).
 
 Initially they gave only one sentence: "add user preferences endpoints under `/api/v2/users`." The result? The agent spent 40% of its context window exploring the repo structure, produced code that looked reasonable but didn't follow the project's error handling patterns, used old SQLAlchemy syntax, and declared completion while the endpoint had runtime errors. The next session had to redo all the discovery work.
 
@@ -94,11 +84,11 @@ They didn't change the model. They changed the harness.
 
 ## Key Takeaways
 
-- Model capability and execution reliability are different things. A thoroughbred still needs good tack.
-- When things fail, check the harness first, then the model. Swapping models is the most expensive option — and often it's not even a model problem.
-- Every failure is a signal: your harness has a structural defect. Find it, fix it.
-- Five defense layers: task specification, context provision, execution environment, verification feedback, state management. Check them systematically, like a doctor ruling out the most common causes first.
-- One `AGENTS.md` file might be more effective than upgrading to a more expensive model. Seriously.
+- Model capability and execution reliability are two different things. Even a thoroughbred needs good tack.
+- When things fail, check the harness first, then the model. Swapping models is the most expensive option — and more often than not, it's not even a model problem.
+- Every failure is a signal: your harness has a structural defect. Find it and fix it.
+- Don't just say "the model isn't good enough." Work through the five layers systematically: task not clearly defined, insufficient context, misconfigured environment, missing verification, loss of state between sessions. Nine times out of ten the problem lives in one of those layers.
+- One `AGENTS.md` file might be more effective than upgrading to a more expensive model.
 
 ## Further Reading
 
@@ -110,7 +100,7 @@ They didn't change the model. They changed the harness.
 
 ## Exercises
 
-1. **Comparison experiment**: Pick a codebase you know well and a non-trivial modification task. First, run the agent with no harness support and record failures. Then add an `AGENTS.md` with explicit verification commands and run again with the same agent. Compare results, attributing each failure to one of the five defense layers.
+1. **Comparison experiment**: Pick a codebase you know well and a non-trivial modification task. First, run the agent with no harness support and record failures. Then add an `AGENTS.md` and explicit verification commands, and run again with the same agent. Compare the two results, attributing each failure to one of the five defense layers.
 
 2. **Verification gap measurement**: Pick 5 coding tasks. After each task, record whether the agent claims completion, then verify actual correctness with independent tests. Calculate the proportion of times the agent claims done when it's actually not done — that's your verification gap. Then think: what verification commands would reduce this proportion?
 
