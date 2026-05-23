@@ -132,7 +132,7 @@ FIX: Move file operations to src/preload/file-ops.ts and call via window.api.rea
 
 5 个缺陷全部被端到端测试捕获，单元测试一个都没发现。代价是测试时间从 2 秒增加到 15 秒，在 agent 工作流里完全可以接受。
 
-## 关键要点
+## 核心要点
 
 - **单元测试对组件边界缺陷系统性盲视**：它们的隔离设计恰好使其无法检测交互问题。
 - **端到端测试不仅检测缺陷，还改变 agent 的编码行为**：让它更关注集成和边界。
