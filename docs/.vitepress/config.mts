@@ -629,7 +629,7 @@ export default withMermaid(
     cleanUrls: true,
     srcExclude: ["temp/**"],
     ignoreDeadLinks: true,
-    head: [['link', { rel: 'icon', type: 'image/svg+xml', href: brandLogo }]]
+    head: [['link', { rel: 'icon', type: 'image/svg+xml', href: brandLogo }]],
     themeConfig: {
       logo: brandLogo,
       search: {
