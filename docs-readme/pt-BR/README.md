@@ -26,7 +26,7 @@
   <img src="https://img.shields.io/badge/Licença-MIT-lightgrey?style=flat-square" alt="Licença MIT">
 </p>
 
-> **Ícone de globo** Este curso está disponível em **14 idiomas**: Inglês, 简体中文, 繁體中文, 日本語, 한국어, Español, Français, Русский, Deutsch, العربية, Tiếng Việt, Oʻzbekcha, Türkçe e Português (BR). Escolha seu idioma nos emblemas acima.
+> 🌍 Este curso está disponível em **14 idiomas**: Inglês, 简体中文, 繁體中文, 日本語, 한국어, Español, Français, Русский, Deutsch, العربية, Tiếng Việt, Oʻzbekcha, Türkçe e Português (BR). Escolha seu idioma nos emblemas acima.
 
 Aprenda Engenharia de Harness é um curso dedicado à engenharia de agentes de codificação de IA. Estudamos profundamente e sintetizamos as teorias e práticas mais avançadas de Engenharia de Harness na indústria. Nossas referências principais incluem:
 
@@ -41,14 +41,14 @@ Aprenda Engenharia de Harness é um curso dedicado à engenharia de agentes de c
 
 ## Índice
 
-- [✨ Prévia Visual](#-visual-preview)
-- [O que Realmente Significa Engenharia de Harness](#what-harness-engineering-actually-means)
-- [Início Rápido: Melhore Seu Agente Hoje](#quick-start-improve-your-agent-today)
-- [Projeto Final: Um Aplicativo Real](#capstone-project-a-real-app)
-- [Trilha de Aprendizagem](#learning-path)
-- [Ementa](#syllabus)
+- [✨ Prévia Visual](#-prévia-visual)
+- [O que Realmente Significa Engenharia de Harness](#o-que-realmente-significa-engenharia-de-harness)
+- [Início Rápido: Melhore Seu Agente Hoje](#início-rápido-melhore-seu-agente-hoje)
+- [Projeto Final: Um Aplicativo Real](#projeto-final-um-aplicativo-real)
+- [Trilha de Aprendizagem](#trilha-de-aprendizagem)
+- [Ementa](#ementa)
 - [Skills](#skills)
-- [Outros Cursos](#other-courses)
+- [Outros Cursos](#outros-cursos)
 
 ---
 
@@ -233,6 +233,290 @@ Pegue os modelos iniciais da [Biblioteca de Recursos](https://walkinglabs.github
 
 Todos os seis projetos do curso giram em torno do mesmo produto: **um aplicativo de desktop de base de conhecimento pessoal baseado em Electron**.
 
+```text
+    ┌──────────────────────────────────────────────────────┐
+    │       App de Desktop de Base de Conhecimento         │
+    │                                                      │
+    │  ┌──────────────┐  ┌──────────────────────────────┐  │
+    │  │ Lista de Doc │  │       Painel de Q&A          │  │
+    │  │              │  │                              │  │
+    │  │ doc-001.md   │  │  P: O que é eng. de harness? │  │
+    │  │ doc-002.md   │  │  R: O ambiente construído    │  │
+    │  │ doc-003.md   │  │     ao redor de um modelo... │  │
+    │  │ ...          │  │     [citação: doc-002.md]    │  │
+    │  └──────────────┘  └──────────────────────────────┘  │
+    │                                                      │
+    │  ┌─────────────────────────────────────────────────┐ │
+    │  │ Barra Status: 42 docs | 38 indexados | sinc 3m  │ │
+    │  └─────────────────────────────────────────────────┘ │
+    └──────────────────────────────────────────────────────┘
+
+    Recursos principais:
+    ├── Importar documentos locais
+    ├── Gerenciar uma biblioteca de documentos
+    ├── Processar e indexar documentos
+    ├── Executar Q&A com IA sobre o conteúdo importado
+    └── Retornar respostas fundamentadas com citações
+```
+
+Este projeto foi escolhido porque combina um forte valor prático, complexidade de produto do mundo real suficiente e um bom cenário para observar as melhorias de harness antes e depois.
+
+O ponto de partida/solução de cada projeto do curso é uma cópia completa deste aplicativo Electron nesse estágio evolutivo. O ponto de partida do P(N+1) é derivado da solução do P(N) — o aplicativo evolui conforme suas habilidades de harness crescem.
+
+---
+
+## Trilha de Aprendizado
+
+O curso foi projetado para ser realizado em ordem. Cada fase se baseia na anterior.
+
+```text
+    Fase 1: ENTENDA O PROBLEMA            Fase 2: ESTRUTURE O REPOSITÓRIO
+    ==========================           ===============================
+
+    L01  Modelos poderosos ≠ execução    L03  Repositório como fonte
+         confiável                             única da verdade
+    L02  O que realmente significa
+         harness                          L04  Divida as instruções em
+                                               vários arquivos, não em
+         |                                     um único arquivo gigante
+         v
+    P01  Comparação entre                     |
+         apenas prompt vs.                    v
+         abordagem orientada por regras  P02  Workspace legível por agentes
+
+
+    Fase 3: CONECTE AS SESSÕES           Fase 4: FEEDBACK E ESCOPO
+    ==========================           =========================
+
+    L05  Mantenha o contexto ativo       L07  Defina limites claros
+         entre sessões                        para as tarefas
+
+    L06  Inicialize antes de cada        L08  Listas de funcionalidades
+         sessão do agente                     como primitivas de harness
+
+         |                                    |
+         v                                    v
+    P03  Continuidade entre múltiplas    P04  Feedback em tempo de
+         sessões                              execução para corrigir
+                                               o comportamento do agente
+
+
+    Fase 5: VERIFICAÇÃO                  Fase 6: JUNTE TUDO
+    ====================                 ==================
+
+    L09  Impedir que agentes             L11  Tornar o comportamento
+         declarem vitória cedo                do agente observável
+         demais
+                                         L12  Encerramento organizado ao
+    L10  Executar o pipeline completo =       final de cada sessão
+         verificação real
+                                              |
+         |                                    v
+         v                               P06  Construir um harness
+    P05  O agente verifica o próprio          completo (projeto final)
+         trabalho
+```
+
+Cada fase leva cerca de uma semana se você estiver estudando em meio período. Se quiser avançar mais rápido, as fases 1–3 podem ser concluídas em um fim de semana prolongado.
+
+---
+
+## Ementa
+
+### Aulas — 12 unidades conceituais, cada uma respondendo a uma pergunta central
+
+*Leia o texto completo de cada aula no [Site de Documentação](https://walkinglabs.github.io/learn-harness-engineering/).*
+
+| Sessão | Pergunta | Ideia Central |
+|---------|----------|-----------|
+| [L01](../../docs/pt-BR/lectures/lecture-01-why-capable-agents-still-fail/index.md) | Por que modelos fortes ainda falham em tarefas reais? | A lacuna de capacidade entre benchmarks e engenharia real |
+| [L02](../../docs/pt-BR/lectures/lecture-02-what-a-harness-actually-is/index.md) | O que "harness" realmente significa? | Cinco subsistemas: instruções, estado, verificação, escopo, ciclo de vida |
+| [L03](../../docs/pt-BR/lectures/lecture-03-why-the-repository-must-become-the-system-of-record/index.md) | Por que o repositório deve ser a única fonte de verdade? | Se o agente não consegue ver, não existe |
+| [L04](../../docs/pt-BR/lectures/lecture-04-why-one-giant-instruction-file-fails/index.md) | Por que um único arquivo de instrução gigante falha? | Divulgação progressiva: forneça um mapa, não uma enciclopédia |
+| [L05](../../docs/pt-BR/lectures/lecture-05-why-long-running-tasks-lose-continuity/index.md) | Por que tarefas de longa duração perdem a continuidade? | Persista o progresso no disco; recomece de onde parou |
+| [L06](../../docs/pt-BR/lectures/lecture-06-why-initialization-needs-its-own-phase/index.md) | Por que a inicialização precisa de sua própria fase? | Verifique se o ambiente está saudável antes do agente começar o trabalho |
+| [L07](../../docs/pt-BR/lectures/lecture-07-why-agents-overreach-and-under-finish/index.md) | Por que os agentes se excedem e não terminam o que começaram? | Um recurso por vez; definição explícita de concluído |
+| [L08](../../docs/pt-BR/lectures/lecture-08-why-feature-lists-are-harness-primitives/index.md) | Por que as listas de recursos são primitivas de harness? | Limites de escopo legíveis por máquina que o agente não pode ignorar |
+| [L09](../../docs/pt-BR/lectures/lecture-09-why-agents-declare-victory-too-early/index.md) | Por que os agentes declaram vitória cedo demais? | Lacunas de verificação: confiança ≠ correção |
+| [L10](../../docs/pt-BR/lectures/lecture-10-why-end-to-end-testing-changes-results/index.md) | Por que o teste de ponta a ponta muda os resultados? | Apenas uma execução de pipeline completa conta como verificação real |
+| [L11](../../docs/pt-BR/lectures/lecture-11-why-observability-belongs-inside-the-harness/index.md) | Por que a observabilidade pertence ao harness? | Se você não pode ver o que o agente fez, não pode consertar o que ele quebrou |
+| [L12](../../docs/pt-BR/lectures/lecture-12-why-every-session-must-leave-a-clean-state/index.md) | Por que cada sessão deve deixar um estado limpo? | O sucesso da próxima sessão depende da limpeza desta sessão |
+
+### Projetos — 6 projetos práticos aplicando os métodos das aulas ao mesmo aplicativo Electron
+
+| Projeto | O Que Você Faz | Mecanismo de Harness |
+|---------|------------|-------------------|
+| [P01](../../docs/pt-BR/projects/project-01-baseline-vs-minimal-harness/index.md) | Execute a mesma tarefa duas vezes: apenas prompt vs. regras primeiro | Harness mínimo: AGENTS.md + init.sh + feature_list.json |
+| [P02](../../docs/pt-BR/projects/project-02-agent-readable-workspace/index.md) | Reestruture o repositório para que o agente possa lê-lo | Espaço de trabalho legível pelo agente + arquivos de estado persistentes |
+| [P03](../../docs/pt-BR/projects/project-03-multi-session-continuity/index.md) | Faça o agente recomeçar de onde parou | Log de progresso + entrega de sessão + continuidade multi-sessão |
+| [P04](../../docs/pt-BR/projects/project-04-incremental-indexing/index.md) | Impeça o agente de fazer demais ou de menos | Feedback de tempo de execução + controle de escopo + indexação incremental |
+| [P05](../../docs/pt-BR/projects/project-05-grounded-qa-verification/index.md) | Faça o agente verificar seu próprio trabalho | Autoverificação + Q&A fundamentado + conclusão baseada em evidências |
+| [P06](../../docs/pt-BR/projects/project-06-runtime-observability-and-debugging/index.md) | Construa um harness completo do zero (projeto final) | Harness completo: todos os mecanismos + observabilidade + estudo de ablação |
+
+```text
+    EVOLUÇÃO DO PROJETO
+    ===================
+
+    P01  Apenas prompt vs. regras primeiro    Você vê o problema
+     |
+     v
+    P02  Espaço de trabalho legível pelo agente Você reestrutura o repositório
+     |
+     v
+    P03  Continuidade multi-sessão             Você conecta as sessões
+     |
+     v
+    P04  Feedback e escopo em tempo real       Você adiciona loops de feedback
+     |
+     v
+    P05  Autoverificação                       Você faz o agente se verificar
+     |
+     v
+    P06  Harness completo (projeto final)      Você constrói o sistema completo
+
+    A solução de cada projeto torna-se o ponto de partida do próximo projeto.
+    O aplicativo evolui. Suas habilidades de harness crescem com ele.
+```
+
+### Biblioteca de Recursos
+
+- [English](https://walkinglabs.github.io/learn-harness-engineering/en/resources/) — modelos, checklists e referências de métodos
+- [简体中文](https://walkinglabs.github.io/learn-harness-engineering/zh/resources/) — 中文模板、清单和方法参考
+- [繁體中文](https://walkinglabs.github.io/learn-harness-engineering/zh-TW/resources/) — 繁體中文範本、清單和方法參考
+- [日本語](https://walkinglabs.github.io/learn-harness-engineering/ja/resources/) — テンプレート、チェックリスト、方法リファレンス
+- [한국어](https://walkinglabs.github.io/learn-harness-engineering/ko/resources/) — 템플릿, 체크리스트, 방법 참고 자료
+- [Español](https://walkinglabs.github.io/learn-harness-engineering/es/resources/) — plantillas, listas de verificación y referencias
+- [Français](https://walkinglabs.github.io/learn-harness-engineering/fr/resources/) — modèles, listes de contrôle et références
+- [Русский](https://walkinglabs.github.io/learn-harness-engineering/ru/resources/) — шаблоны, чек-листы и справочники
+- [Deutsch](https://walkinglabs.github.io/learn-harness-engineering/de/resources/) — Vorlagen, Checklisten und Referenzen
+- [العربية](https://walkinglabs.github.io/learn-harness-engineering/ar/resources/) — قوالب، قوائم تحقق ومراجع
+- [Tiếng Việt](https://walkinglabs.github.io/learn-harness-engineering/vi/resources/) — mẫu, danh sách kiểm tra và tài liệu tham khảo
+- [Oʻzbekcha](https://walkinglabs.github.io/learn-harness-engineering/uz/resources/) — andozalar, tekshiruv roʻyxatlari va maʼlumotnomalar
+- [Türkçe](https://walkinglabs.github.io/learn-harness-engineering/tr/resources/) — şablonlar, kontrol listeleri ve referanslar
+- [Português (BR)](https://walkinglabs.github.io/learn-harness-engineering/pt-BR/resources/) — modelos, listas de verificação e referências de métodos
+
+---
+
+## O Ciclo de Vida de uma Sessão de Agente
+
+Uma das ideias centrais deste curso: **a sessão do agente deve seguir um ciclo de vida estruturado, e não funcionar sem regras ou organização.** Veja como isso funciona:
+
+```text
+    CICLO DE VIDA DE UMA SESSÃO DE AGENTE
+    =====================================
+
+    ┌──────────────────────────────────────────────────────────────────┐
+    │  INÍCIO                                                         │
+    │                                                                  │
+    │  1. O agente lê AGENTS.md / CLAUDE.md                            │
+    │  2. O agente executa init.sh (instalação, verificação,           │
+    │     checagem de integridade)                                     │
+    │  3. O agente lê claude-progress.md (o que aconteceu na última    │
+    │     sessão)                                                      │
+    │  4. O agente lê feature_list.json (o que foi concluído e o que   │
+    │     vem a seguir)                                                │
+    │  5. O agente verifica o git log (alterações recentes)            │
+    │                                                                  │
+    │  SELECIONAR                                                      │
+    │                                                                  │
+    │  6. O agente escolhe exatamente UMA funcionalidade não concluída │
+    │  7. O agente trabalha apenas nessa funcionalidade               │
+    │                                                                  │
+    │  EXECUTAR                                                        │
+    │                                                                  │
+    │  8. O agente implementa a funcionalidade                         │
+    │  9. O agente executa as verificações (testes, lint,              │
+    │     verificação de tipos)                                        │
+    │  10. Se a verificação falhar: corrigir e executar novamente      │
+    │  11. Se a verificação passar: registrar evidências               │
+    │                                                                  │
+    │  ENCERRAMENTO                                                    │
+    │                                                                  │
+    │  12. O agente atualiza claude-progress.md                        │
+    │  13. O agente atualiza feature_list.json                         │
+    │  14. O agente registra o que ainda está quebrado ou não foi      │
+    │      verificado                                                  │
+    │  15. O agente faz commit (somente quando for seguro retomar)     │
+    │  16. O agente deixa um caminho de reinício limpo para a próxima  │
+    │      sessão                                                      │
+    │                                                                  │
+    └──────────────────────────────────────────────────────────────────┘
+```
+
+    O harness governa cada transição desse ciclo de vida.
+    O modelo decide qual código escrever em cada etapa.
+    Sem o harness, a etapa 9 se torna: "o agente diz que parece estar tudo certo."
+    Com o harness, a etapa 9 se torna: "os testes passaram, o lint está limpo e a verificação de tipos foi concluída com sucesso."
+
+---
+
+## Para Quem Este Curso É Indicado
+
+Este curso é voltado para:
+
+- Engenheiros que já utilizam agentes de programação e desejam maior estabilidade e qualidade
+- Pesquisadores ou criadores que desejam uma compreensão sistemática sobre design de harness
+- Tech leads que precisam entender como o design do ambiente afeta o desempenho dos agentes
+
+Este curso não é indicado para:
+
+- Pessoas que procuram uma introdução à IA sem código
+- Pessoas que se preocupam apenas com prompts e não pretendem construir implementações reais
+- Alunos que não estão dispostos a permitir que agentes trabalhem dentro de repositórios reais
+
+---
+
+## Requisitos
+
+Este é um curso em que você realmente executará agentes de programação.
+
+Você precisará de pelo menos uma destas ferramentas:
+
+- Claude Code
+- Codex
+- Outro agente de programação para IDE ou CLI que ofereça suporte à edição de arquivos, execução de comandos e tarefas de múltiplas etapas
+
+O curso pressupõe que você seja capaz de:
+
+- Abrir um repositório local
+- Permitir que o agente edite arquivos
+- Permitir que o agente execute comandos
+- Inspecionar saídas e executar tarefas novamente
+
+Se você não tiver uma ferramenta desse tipo, ainda poderá ler o conteúdo do curso, mas não conseguirá concluir os projetos da forma como foram planejados.
+
+---
+
+## Visualização Local
+
+Este repositório utiliza o VitePress como visualizador de documentação.
+
+```sh
+npm install
+npm run docs:dev        # Servidor de desenvolvimento com recarregamento automático
+npm run docs:build      # Build de produção
+npm run docs:preview    # Visualizar o site gerado
+```
+
+Em seguida, abra no navegador a URL local exibida pelo VitePress.
+
+---
+
+## Pré-requisitos
+
+Obrigatórios:
+
+- Familiaridade com terminal, Git e ambientes de desenvolvimento locais
+- Capacidade de ler e escrever código em pelo menos uma stack de aplicações comum
+- Experiência básica com depuração de software (leitura de logs, testes e comportamento em tempo de execução)
+- Tempo suficiente para se dedicar a um curso com foco em implementação prática
+
+Úteis, mas não obrigatórios:
+
+- Experiência com Electron, aplicações desktop ou ferramentas local-first
+- Conhecimento em testes, logging ou arquitetura de software
+- Experiência prévia com Codex, Claude Code ou agentes de programação semelhantes
+
 ---
 
 ## Referências Principais
@@ -306,6 +590,12 @@ Nossa equipe também criou outros cursos! Confira-os:
 [![Modern LLM Notebook](https://img.shields.io/badge/MODERN_LLM_NOTEBOOK-0052cc?style=for-the-badge)](https://github.com/walkinglabs/modern-llm-notebook)
 
 **Modern LLM Notebook**: Um curso prático para construir LLMs modernos do zero em PyTorch, com 23 Jupyter Notebooks executáveis cobrindo tokenizadores, atenção, MoE, RLHF, inferência, avaliação e destilação.
+
+---
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=walkinglabs/learn-harness-engineering&type=date&legend=top-left)](https://www.star-history.com/#walkinglabs/learn-harness-engineering&type=date&legend=top-left)
 
 ---
 
